@@ -1,0 +1,20 @@
+{
+   "perez":[
+        {
+            "id": "0",
+             "date": "2021-01-01",
+             "time": "12:00",
+             "location": "Manila",
+             "prop":"Meeting",
+             "aiRespond": "Meeting"
+        },
+        {
+            "id": "1",
+             "date": "2021-01-02",
+             "time": "13:00",
+             "location": "Manila",
+             "prop":"Meeting",
+             "aiRespond": "Meeting"
+        }
+   ] 
+}

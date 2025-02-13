@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Shield Base -->
+  <path d="M200 20L20 80v80a180 180 0 00180 120 180 180 0 00180-120V80z" 
+        fill="#4f46e5" class="dark:fill-purple-600"/>
+  
+  <!-- Lock -->
+  <g transform="translate(160 100)">
+    <rect x="10" y="20" width="60" height="80" rx="5" fill="#fff"/>
+    <rect x="30" y="0" width="20" height="20" rx="3" fill="#fff"/>
+    <circle cx="40" cy="60" r="15" fill="#4f46e5" class="dark:fill-purple-400"/>
+  </g>
+
+  <!-- Data Flow -->
+  <path d="M50 150h80M270 150h80" stroke="#3b82f6" stroke-width="3"/>
+  <path d="M150 150h100" stroke="#10b981" stroke-width="3" stroke-dasharray="4"/>
+  
+  <!-- Encryption Symbols -->
+  <g font-size="20" text-anchor="middle">
+    <text x="120" y="250" fill="#3b82f6">AES-256</text>
+    <text x="200" y="250" fill="#10b981">TLS 1.3</text>
+    <text x="280" y="250" fill="#4f46e5">RSA-2048</text>
+  </g>
+</svg>
