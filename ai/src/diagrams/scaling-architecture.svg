@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Cloud Base -->
+  <rect x="50" y="100" width="300" height="120" rx="20" fill="#e5e7eb" class="dark:fill-gray-600"/>
+  
+  <!-- Servers -->
+  <g transform="translate(80 120)">
+    <!-- Server 1 -->
+    <rect width="60" height="80" fill="#3b82f6"/>
+    <rect x="15" y="10" width="30" height="10" fill="#fff"/>
+    <rect x="15" y="30" width="30" height="10" fill="#fff"/>
+    <rect x="15" y="50" width="30" height="10" fill="#fff"/>
+    
+    <!-- Server 2 -->
+    <rect x="100" width="60" height="80" fill="#3b82f6"/>
+    <rect x="115" y="10" width="30" height="10" fill="#fff"/>
+    <rect x="115" y="30" width="30" height="10" fill="#fff"/>
+    <rect x="115" y="50" width="30" height="10" fill="#fff"/>
+    
+    <!-- Server 3 -->
+    <rect x="200" width="60" height="80" fill="#3b82f6"/>
+    <rect x="215" y="10" width="30" height="10" fill="#fff"/>
+    <rect x="215" y="30" width="30" height="10" fill="#fff"/>
+    <rect x="215" y="50" width="30" height="10" fill="#fff"/>
+  </g>
+
+  <!-- Arrows -->
+  <path d="M20 150h40M340 150h40" stroke="#10b981" stroke-width="3"/>
+  <path d="M180 50v40" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+  <text x="190" y="40" font-size="14" fill="#ef4444">Auto-Scale</text>
+</svg>

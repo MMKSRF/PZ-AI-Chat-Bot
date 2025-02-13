@@ -1,0 +1,234 @@
+{
+    "ai":[{
+      "id": "0",
+      "object": "chat.completion",
+      "created": 1739153659,
+      "model": "starcoder2-7b",
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "The `useEffect` hook allows you to perform side effects in function components. It runs after every render by default, but you can control when it runs by specifying dependencies.\n```js\nuseEffect(() => {\n  console.log('Component rendered or updated');\n}, [dependency]);\n``` The `useEffect` hook allows you to perform side effects in function components. It runs after every render by default, but you can control when it runs by specifying dependencies.\n```js\nuseEffect(() => {\n  console.log('Component rendered or updated');\n}, [dependency]);\n``` The `useEffect` hook allows you to perform side effects in function components. It runs after every render by default, but you can control when it runs by specifying dependencies.\n```js\nuseEffect(() => {\n  console.log('Component rendered or updated');\n}, [dependency]);\n``` The `useEffect` hook allows you to perform side effects in function components. It runs after every render by default, but you can control when it runs by specifying dependencies.\n```js\nuseEffect(() => {\n  console.log('Component rendered or updated');\n}, [dependency]);\n```. The `useEffect` hook allows you to perform side effects in function components. It runs after every render by default, but you can control when it runs by specifying dependencies.\n```js\nuseEffect(() => {\n  console.log('Component rendered or updated');\n}, [dependency]);\n```. The `useEffect` hook allows you to perform side effects in function components. It runs after every render by default, but you can control when it runs by specifying dependencies.\n```js\nuseEffect(() => {\n  console.log('Component rendered or updated');\n}, [dependency]);\n```"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 120,
+        "total_tokens": 145
+      },
+      "system_fingerprint": "starcoder2-7b"
+    },
+    {
+      "id": "1",
+      "object": "chat.completion",
+      "created": 1739153660,
+      "model": "starcoder2-7b",
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "The `useState` hook is used to add state to functional components. It returns an array with two elements: the current state value and a function to update it.\n```js\nconst [count, setCount] = useState(0);\n```"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 20,
+        "completion_tokens": 80,
+        "total_tokens": 100
+      },
+      "system_fingerprint": "starcoder2-7b"
+    },
+    {
+      "id": "2",
+      "object": "chat.completion",
+      "created": 1739153661,
+      "model": "starcoder2-7b",
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "The `useContext` hook allows you to access the value of a context without wrapping your component in a `Context.Consumer`.\n```js\nconst value = useContext(MyContext);\n```"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 18,
+        "completion_tokens": 70,
+        "total_tokens": 88
+      },
+      "system_fingerprint": "starcoder2-7b"
+    },
+    {
+      "id": "3",
+      "object": "chat.completion",
+      "created": 1739153662,
+      "model": "starcoder2-7b",
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "The `useReducer` hook is used for state management in more complex scenarios. It takes a reducer function and an initial state, and returns the current state and a dispatch function.\n```js\nconst [state, dispatch] = useReducer(reducer, initialState);\n```"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 22,
+        "completion_tokens": 90,
+        "total_tokens": 112
+      },
+      "system_fingerprint": "starcoder2-7b"
+    },
+    {
+      "id": "4",
+      "object": "chat.completion",
+      "created": 1739153663,
+      "model": "starcoder2-7b",
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "The `useMemo` hook is used to memoize expensive calculations. It only recalculates the value when one of its dependencies changes.\n```js\nconst memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);\n```"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 24,
+        "completion_tokens": 85,
+        "total_tokens": 109
+      },
+      "system_fingerprint": "starcoder2-7b"
+    },
+    {
+      "id": "5",
+      "object": "chat.completion",
+      "created": 1739153664,
+      "model": "starcoder2-7b",
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "The `useRef` hook is used to create a mutable reference that persists across renders. It can be used to access DOM elements or store mutable values.\n```js\nconst inputRef = useRef(null);\n```"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 20,
+        "completion_tokens": 75,
+        "total_tokens": 95
+      },
+      "system_fingerprint": "starcoder2-7b"
+    },
+    {
+      "id": "6",
+      "object": "chat.completion",
+      "created": 1739153665,
+      "model": "starcoder2-7b",
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "The `useLayoutEffect` hook is similar to `useEffect`, but it runs synchronously after all DOM mutations. Use this to read layout from the DOM and re-render synchronously.\n```js\nuseLayoutEffect(() => {\n  console.log('DOM updated');\n}, [dependency]);\n```"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 100,
+        "total_tokens": 125
+      },
+      "system_fingerprint": "starcoder2-7b"
+    },
+    {
+      "id": "7",
+      "object": "chat.completion",
+      "created": 1739153666,
+      "model": "starcoder2-7b",
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "The `useImperativeHandle` hook customizes the instance value that is exposed when using `ref`. It is used with `forwardRef`.\n```js\nuseImperativeHandle(ref, () => ({\n  focus: () => {\n    inputRef.current.focus();\n  }\n}));\n```"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 22,
+        "completion_tokens": 95,
+        "total_tokens": 117
+      },
+      "system_fingerprint": "starcoder2-7b"
+    },
+    {
+      "id": "8",
+      "object": "chat.completion",
+      "created": 1739153667,
+      "model": "starcoder2-7b",
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "The `useDebugValue` hook is used to display a label for custom hooks in React DevTools. It helps in debugging custom hooks.\n```js\nuseDebugValue(isOnline ? 'Online' : 'Offline');\n```"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 18,
+        "completion_tokens": 70,
+        "total_tokens": 88
+      },
+      "system_fingerprint": "starcoder2-7b"
+    },
+    {
+      "id": "9",
+      "object": "chat.completion",
+      "created": 1739153668,
+      "model": "starcoder2-7b",
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "The `useTransition` hook allows you to mark some state updates as non-urgent, which can help improve performance by deferring less important updates.\n```js\nconst [isPending, startTransition] = useTransition();\n```"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 20,
+        "completion_tokens": 85,
+        "total_tokens": 105
+      },
+      "system_fingerprint": "starcoder2-7b"
+    }]
+}
+
+ 

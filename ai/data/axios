@@ -1,0 +1,26 @@
+
+/* try {
+        
+        const result = await axios.post(
+          "http://localhost:1234/v1/chat/completions",
+          {
+            model: "starcoder2-7b",
+            messages: [
+              { role: "system", content: "Always answer in rhymes. Today is Thursday" },
+              { role: "user", content: input },
+            ],
+            temperature: 0.7,
+            max_tokens: -1,
+            stream: false,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+  
+        let aiResponse = result.data.choices[0].message.content;
+        aiResponse = aiResponse.replace(/<think>/g, "").replace(/<\/think>/g, ""); // Remove <think> tags
+        setResponse(aiResponse);
+      } */ 

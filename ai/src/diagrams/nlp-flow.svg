@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200">
+  <!-- NLP Flow Diagram -->
+  <style>
+    .step { fill: #e0e7ff; stroke: #6366f1; }
+    .arrow { stroke: #4f46e5; stroke-width: 2; }
+    .dark .step { fill: #3730a3; stroke: #818cf8; }
+    .dark .arrow { stroke: #a5b4fc; }
+  </style>
+
+  <!-- Processing Steps -->
+  <g transform="translate(20 20)">
+    <!-- Text Input -->
+    <rect class="step" x="0" y="40" width="100" height="60" rx="10"/>
+    <path d="M30 60h40v20H30z" fill="#4f46e5"/>
+    <text x="50" y="130" text-anchor="middle" font-size="14">Text Input</text>
+
+    <!-- Tokenization -->
+    <g transform="translate(140 0)">
+      <rect class="step" x="0" y="40" width="100" height="60" rx="10"/>
+      <text x="50" y="30" text-anchor="middle" font-size="16">→</text>
+      <text x="50" y="70" text-anchor="middle" font-size="16">Tokenize</text>
+      <text x="50" y="130" text-anchor="middle" font-size="14">Tokenization</text>
+    </g>
+
+    <!-- POS Tagging -->
+    <g transform="translate(280 0)">
+      <rect class="step" x="0" y="40" width="100" height="60" rx="10"/>
+      <text x="50" y="30" text-anchor="middle" font-size="16">📑</text>
+      <text x="50" y="70" text-anchor="middle" font-size="16">Tag</text>
+      <text x="50" y="130" text-anchor="middle" font-size="14">POS Tagging</text>
+    </g>
+
+    <!-- NER -->
+    <g transform="translate(420 0)">
+      <rect class="step" x="0" y="40" width="100" height="60" rx="10"/>
+      <text x="50" y="30" text-anchor="middle" font-size="16">🏷️</text>
+      <text x="50" y="70" text-anchor="middle" font-size="16">Entities</text>
+      <text x="50" y="130" text-anchor="middle" font-size="14">NER</text>
+    </g>
+
+    <!-- Output -->
+    <g transform="translate(560 0)">
+      <rect class="step" x="0" y="40" width="100" height="60" rx="10"/>
+      <path d="M30 60l20 20-20 20h40l-20-20 20-20z" fill="#4f46e5"/>
+      <text x="50" y="130" text-anchor="middle" font-size="14">Analysis</text>
+    </g>
+
+    <!-- Arrows -->
+    <path class="arrow" d="M110 70h30M250 70h30M390 70h30" 
+          stroke-linecap="round" marker-end="url(#arrowhead)"/>
+  </g>
+
+  <!-- Arrowhead definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#4f46e5" class="dark:fill-a5b4fc"/>
+    </marker>
+  </defs>
+</svg>
