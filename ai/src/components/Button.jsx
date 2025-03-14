@@ -27,8 +27,9 @@ const Button = ({
     danger: 'bg-red-500 text-white hover:bg-red-600 focus:ring-red-500',
     warning: 'bg-yellow-500 text-white hover:bg-yellow-600 focus:ring-yellow-500',
     info: 'bg-indigo-500 text-white hover:bg-indigo-600 focus:ring-indigo-500',
-    light: 'bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-gray-100',
-    dark: 'text-black hover:bg-gray-200 focus:ring-gray-800 active:bg-gray-300',
+    light: 'bg-gray-100 text-gray-700 hover:bg-gray-400 focus:ring-gray-100',
+    lightGray: 'bg-gray-500 text-black hover:bg-gray-400 focus:ring-gray-100',
+    dark: 'text-black hover:bg-gray-600 bg-gray-700  focus:ring-gray-800 active:bg-gray-300',
   };
 
   // ...existing code...
@@ -62,7 +63,7 @@ Button.propTypes = {
   type: PropTypes.string,
   disabled: PropTypes.bool,
   className: PropTypes.string,
-  variant: PropTypes.oneOf(['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark']),
+  variant: PropTypes.oneOf(['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark','lightGray']),
   size: PropTypes.oneOf(['small', 'medium', 'large']),
   icon: PropTypes.node,
   iconPosition: PropTypes.oneOf(['left', 'right']),

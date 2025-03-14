@@ -12,10 +12,15 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.5",
+    "katex": "^0.16.21",
     "prop-types": "^15.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-katex": "^3.0.1",
     "react-router-dom": "^7.1.5",
+    "react-syntax-highlighter": "^15.6.1",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0",
     "tailwindcss": "^4.0.5"
   },
   "devDependencies": {

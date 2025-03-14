@@ -1,6 +1,70 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import useSearch from '../hooks/Search';
+
+
+const sampleHistory = [
+  {
+    topic: 'React Components',
+    interactions: [
+      {
+        id: 1,
+        question: "How to create reusable components in React?",
+        answer: "You can create reusable components by...",
+        timestamp: "2024-03-15T09:30:00"
+      },
+      {
+        id: 2,
+        question: "Best practices for component composition",
+        answer: "Component composition can be achieved through...",
+        timestamp: "2024-03-15T10:15:00"
+      }
+    ],
+    lastUpdated: "2024-03-15T10:15:00"
+  },
+  {
+    topic: 'AI Ethics',
+    interactions: [
+      {
+        id: 3,
+        question: "Ethical considerations in AI development",
+        answer: "Key ethical considerations include...",
+        timestamp: "2024-03-14T14:45:00"
+      }
+    ],
+    lastUpdated: "2024-03-14T14:45:00"
+  }
+];
+
+
+
+
+
+const LLM_CONFIG = {
+  math: {
+    name: "Math Expert",
+    icon: '🧮',
+    endpoint: '/api/math',
+    color: 'bg-blue-500',
+  },
+  coding: {
+    name: "Code Assistant",
+    icon: '💻',
+    endpoint: '/api/code',
+    color: 'bg-green-500',
+  },
+  history: {
+    name: "History Scholar",
+    icon: '📜',
+    endpoint: '/api/history',
+    color: 'bg-purple-500',
+  }
+};
+
+
+
+
 
 
 
@@ -11,60 +75,25 @@ const SignUpContext = createContext()
 
 
 
-function HistoryProvider({ children }){ // Changed 'child' to 'children'
-
-  const [history, setHistory] = useState([]);
+function HistoryProvider({ children }){
   const [expandedTopics, setExpandedTopics] = useState({});
-  const [searchQuery, setSearchQuery] = useState('');
-
-
-
-  // Sample data structure
-  const sampleHistory = [
-    {
-      topic: 'React Components',
-      interactions: [
-        {
-          id: 1,
-          question: "How to create reusable components in React?",
-          answer: "You can create reusable components by...",
-          timestamp: "2024-03-15T09:30:00"
-        },
-        {
-          id: 2,
-          question: "Best practices for component composition",
-          answer: "Component composition can be achieved through...",
-          timestamp: "2024-03-15T10:15:00"
-        }
-      ],
-      lastUpdated: "2024-03-15T10:15:00"
-    },
-    {
-      topic: 'AI Ethics',
-      interactions: [
-        {
-          id: 3,
-          question: "Ethical considerations in AI development",
-          answer: "Key ethical considerations include...",
-          timestamp: "2024-03-14T14:45:00"
-        }
-      ],
-      lastUpdated: "2024-03-14T14:45:00"
-    }
-  ];
-
-
-
-
-
-
+  const {
+    searchTerm: searchQuery,
+    setSearchTerm: setSearchQuery,
+    searchData,
+    setSearchData
+  } = useSearch();
 
   useEffect(() => {
-    // Simulate API call
     setTimeout(() => {
-      setHistory(sampleHistory);
+      setSearchData(sampleHistory);
     }, 500);
   }, []);
+
+  const filteredTopics = searchData(sampleHistory, {
+    keys: ["topic", "interactions.question", "interactions.answer"],
+    caseSensitive: false
+  });
 
   const toggleTopic = (topic) => {
     setExpandedTopics(prev => ({
@@ -74,60 +103,126 @@ function HistoryProvider({ children }){ // Changed 'child' to 'children'
   };
 
   const deleteTopic = (topicToDelete) => {
-    setHistory(prev => prev.filter(topic => topic.topic !== topicToDelete));
+    setSearchData(prev => prev.filter(topic => topic.topic !== topicToDelete));
   };
 
-  const filteredTopics = history.filter(topic => 
-    topic.topic.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    topic.interactions.some(interaction => 
-      interaction.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      interaction.answer.toLowerCase().includes(searchQuery.toLowerCase())
-    )
+  return (
+    <HistoryContext.Provider value={{
+      searchQuery,
+      setSearchQuery,
+      filteredTopics,
+      toggleTopic,
+      expandedTopics,
+      deleteTopic,
+    }}>
+      {children}
+    </HistoryContext.Provider>
   );
-
-    
-
-
-    return (
-        <HistoryContext.Provider value={{
-            searchQuery,
-            setSearchQuery,
-            filteredTopics,
-            toggleTopic,
-            expandedTopics,
-            deleteTopic,
-        }}>
-            {children} {/* Changed 'child' to 'children' */}
-        </HistoryContext.Provider>
-    )
-    
 }
 
 
 
-function AIStudioHeaderProvider ({ children }) {
 
-    const [showSearchInput, setShowSearchInput] = useState(false);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [historyClicked, setHistoryClicked] = useState(false)
-  
-    const handleSearchSubmit = (e) => {
-      e.preventDefault();
-      if (searchQuery.trim()) {
 
-        setShowSearchInput(false);
-        setSearchQuery('');
-      }
-    };
-  
 
-     
-    return <AIStudioHeaderContext.Provider value={{showSearchInput,historyClicked,setHistoryClicked,handleSearchSubmit,setShowSearchInput,setSearchQuery}}>
 
-        {children}
 
+
+
+
+
+
+
+
+function AIStudioHeaderProvider({ children }) {
+
+  const [showSearchInput, setShowSearchInput] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [historyClicked, setHistoryClicked] = useState(false);
+  const {searchTerm,setSearchTerm,searchData} = useSearch()
+
+  const [customLLM, setCustomLLM] = useState("");
+  const [url, setUrl] = useState("");
+  const [isTooltipVisible, setTooltipVisible] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const [cancel, setCancel] = useState(false);
+
+
+  const handleSearchSubmit = useCallback((e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      // Add your search logic here
+      console.log('Searching for:', searchQuery);
+      setShowSearchInput(false);
+      setSearchQuery('');
+    }
+  }, [searchQuery]);
+
+  const data = searchData(
+    LLM_CONFIG , {
+      keys: ["name"],
+      caseSensitive: false
+    }
+  )
+
+  // console.log(data)
+
+  const value = {
+    showSearchInput,
+    historyClicked,
+    setHistoryClicked,
+    handleSearchSubmit,
+    setShowSearchInput,
+
+    searchTerm,
+    setSearchTerm,
+    data,
+
+    searchQuery,
+    setSearchQuery,
+    LLM_CONFIG,
+
+
+    customLLM,
+    url,
+    setUrl,
+    isTooltipVisible,
+    setTooltipVisible,
+    setCustomLLM,
+    errors,
+    setErrors,
+
+
+    cancel,
+    setCancel
+
+
+
+
+  };
+
+  return (
+    <AIStudioHeaderContext.Provider value={value}>
+      {children}
     </AIStudioHeaderContext.Provider>
+  );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function SignUpProvider({children}){
@@ -245,7 +340,7 @@ function SignUpProvider({children}){
 
 
 HistoryProvider.propTypes = {
-    children: PropTypes.node.isRequired, // Changed 'child' to 'children'
+    children: PropTypes.node.isRequired,
 };
 
 AIStudioHeaderProvider.propTypes = {

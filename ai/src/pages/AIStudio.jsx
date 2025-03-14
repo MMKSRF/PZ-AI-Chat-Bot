@@ -1,88 +1,82 @@
-
+import { useContext, useState } from 'react';
+import Button from '../components/Button';
 import LlmBox from "../components/LlmBox";
 import AIStudioHeader from "./AIStudioHeader";
-
-const LLM_CONFIG = {
-  math: {
-    name: "Math Expert",
-    icon: '🧮',
-    endpoint: '/api/math',
-    color: 'bg-blue-500',
-  },
-  coding: {
-    name: "Code Assistant",
-    icon: '💻',
-    endpoint: '/api/code',
-    color: 'bg-green-500',
-  },
-  history: {
-    name: "History Scholar",
-    icon: '📜',
-    endpoint: '/api/history',
-    color: 'bg-purple-500',
-  }
-};
+import { AIStudioHeaderContext } from '../contexts/FirstPage';
+import CustomLlm from './CustomLlm';
 
 function AIStudio() {
+  const [selectedLLM, setSelectedLLM] = useState(null);
+  const { LLM_CONFIG , data , cancel ,setCancel} = useContext(AIStudioHeaderContext);
 
-  const handleLLMChange=(key)=>{
-    console.log(key)
+  let Data ;
+
+  if (data){
+
+    Data = data;
+
   }
-  const selectedLLM = 123
- 
+  else{
+    Data = LLM_CONFIG
+  }
+
+  console.log(Data)
+
+  const handleLLMChange = (key) => {
+    setSelectedLLM(key);
+    console.log(key);
+  }
+  
   return (
-
     <>
-    <AIStudioHeader
-        onSearch={(query) => console.log('Search:', query)}
-        onHistory={() => console.log('History clicked')}
-      />
-      
-      
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
+   
+   {
+   
+   cancel ?
 
 
+  <CustomLlm />
+  :
+   <>
+   
+   
+   <AIStudioHeader />
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
+    {/* Main Content Area */}
+    
+   <LlmBox >
+
+      <button
+          className={`flex items-center gap-3 px-3 py-2 rounded-lg 
+            ${'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 mb-3 dark:hover:bg-gray-600'}
+            transition-colors w-full text-left`}
+          onClick={() => setCancel(true)}
+        >
+          <span className="text-lg">🤖</span> {/* Replace with your icon */}
+          <span className="text-sm">Custom LLM</span>
+        </button>
+      
+    {Object.entries(Data).map(([key, llm]) => (
+      <Button
+        key={key}
+        onClick={() => handleLLMChange(key)}
+        variant={selectedLLM === key ? 'dark' : 'lightGray'}
+        className="w-full text-left mb-2"
+      >
+        <span className="text-lg mr-2">{llm.icon}</span>
+        <span className="text-sm">{llm.name}</span>
+      </Button>
+    ))}
+   </LlmBox>
 
      
-
-
-        
-      {/* Main Content Area */}
-      
-     <LlmBox >
-
-     <button
-  onClick={() => console.log("Custom LLM clicked")}
-  className={`flex items-center gap-3 px-3 py-2 rounded-lg 
-    ${'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 mb-3 dark:hover:bg-gray-600'}
-    transition-colors w-full text-left`}
->
-  <span className="text-lg">🤖</span> {/* Replace with your icon */}
-  <span className="text-sm">Custom LLM</span>
-</button>
-      
-      {Object.entries(LLM_CONFIG).map(([key, llm]) => (
-
-        <>
-              <button
-                key={key}
-                onClick={() => handleLLMChange(key)}
-                className={`flex items-center gap-3 px-3 py-2 rounded-lg 
-                  ${selectedLLM === key 
-                    ? `${llm.color} text-white` 
-                    : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'}
-                  transition-colors w-full text-left`}
-              >
-                <span className="text-lg">{llm.icon}</span>
-                <span className="text-sm">{llm.name}</span>
-              </button>
-        
-        </>
-            ))}
-     </LlmBox>
-
-       
     </div>
+  
+ 
+   
+     
+    </>}
+  
     </>
    
   );

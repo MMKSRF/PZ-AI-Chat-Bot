@@ -1,12 +1,16 @@
-import { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useState, useEffect, useRef, memo } from "react";
 import Button from "../components/Button";
 import Header from "../components/Header";
 import Loader from "../components/Loader";
 import { ChatContext } from "../contexts/SecondPage";
 import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
+import MathCodeRenderer from "../components/MathCodeRenderer";
+
+// Memoize MathCodeRenderer to prevent unnecessary re-renders during input changes
+const MemoizedMathCodeRenderer = memo(MathCodeRenderer);
 
 function Chat() {
-  const { response, renderCode, handleSubmit, inputRef, isLoading } = useContext(ChatContext);
+  const { response, handleSubmit, inputRef, isLoading } = useContext(ChatContext);
   const [inputValue, setInputValue] = useState("");
   const messagesEndRef = useRef(null);
 
@@ -26,7 +30,7 @@ function Chat() {
   const handleEnhancedSubmit = (e) => {
     e.preventDefault();
     if (inputValue.trim()) {
-      handleSubmit(e);
+      handleSubmit(inputValue);
       setInputValue("");
     }
   };
@@ -51,7 +55,7 @@ function Chat() {
                 AI Response:
               </h3>
               <div className="text-gray-700 dark:text-gray-300">
-                {renderCode(response)}
+                <MemoizedMathCodeRenderer content={`${response}`} />
               </div>
             </div>
             <div ref={messagesEndRef} /> {/* Auto-scroll anchor */}
@@ -64,8 +68,6 @@ function Chat() {
         onSubmit={handleEnhancedSubmit}
         className="sticky bottom-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 p-4"
       >
-
-
         <div className="flex items-center gap-2">
           <input
             type="text"
@@ -88,9 +90,6 @@ function Chat() {
             )}
           </Button>
         </div>
-
-
-        
       </form>
     </div>
   );

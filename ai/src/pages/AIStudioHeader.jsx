@@ -1,10 +1,40 @@
-import { useContext } from 'react';
-import PropTypes from 'prop-types';
+import { useContext, useEffect, useCallback } from 'react';
+import { debounce } from 'lodash-es';
 import { AIStudioHeaderContext } from '../contexts/FirstPage';
 import HistoryPage from './HistoryDisplay';
 
 const AIStudioHeader = () => {
-  const { showSearchInput, historyClicked, setHistoryClicked, handleSearchSubmit, setShowSearchInput, setSearchQuery } = useContext(AIStudioHeaderContext);
+  const { 
+    showSearchInput, 
+    historyClicked, 
+    setHistoryClicked, 
+    handleSearchSubmit, 
+    setShowSearchInput, 
+    searchQuery, 
+    setSearchQuery ,
+
+    searchTerm,
+    setSearchTerm
+
+  } = useContext(AIStudioHeaderContext);
+
+  // Debounced search submission
+  const debouncedSearch = useCallback(
+    debounce((query) => {
+      if (query) {
+        handleSearchSubmit();
+      }
+    }, 300),
+    [handleSearchSubmit]
+  );
+
+  useEffect(() => {
+    // Trigger search when query changes
+    debouncedSearch(searchQuery);
+    
+    // Cleanup debounce on unmount
+    return () => debouncedSearch.cancel();
+  }, [searchQuery, debouncedSearch]);
 
   if (historyClicked) {
     return <HistoryPage />;
@@ -12,19 +42,19 @@ const AIStudioHeader = () => {
 
   return (
     <header className="sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-3 lg:px-5">
         <div className="flex items-center justify-between h-16">
           {/* Right Section - Controls */}
           <div className="flex items-center space-x-2 md:space-x-4">
             {showSearchInput ? (
-              <form onSubmit={handleSearchSubmit} className="flex flex-1 items-center gap-2 max-w-xl">
+              <div className="flex flex-1 items-center gap-2 max-w-xl">
                 <button
                   type="button"
                   onClick={() => {
                     setShowSearchInput(false);
                     setSearchQuery('');
                   }}
-                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+                  className="p-0 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
                 >
                   <svg 
                     className="w-6 h-6 text-gray-600 dark:text-gray-300"
@@ -43,19 +73,13 @@ const AIStudioHeader = () => {
                 
                 <input
                   type="text"
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Search conversations..."
                   autoFocus
-                  className="flex-grow px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 dark:focus:ring-gray-300 bg-transparent dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
+                  className="flex-grow px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 dark:focus:ring-gray-300 bg-transparent dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
                 />
-
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-black dark:bg-gray-700 text-white rounded-lg hover:bg-gray-800 dark:hover:bg-gray-600 transition-colors whitespace-nowrap"
-                >
-                  Search
-                </button>
-              </form>
+              </div>
             ) : (
               <>
                 <button
@@ -77,6 +101,9 @@ const AIStudioHeader = () => {
                     />
                   </svg>
                 </button>
+
+
+
 
                 <button
                   onClick={() => setShowSearchInput(true)}
@@ -104,11 +131,6 @@ const AIStudioHeader = () => {
       </div>
     </header>
   );
-};
-
-AIStudioHeader.propTypes = {
-  onSearch: PropTypes.func.isRequired,
-  onHistory: PropTypes.func.isRequired,
 };
 
 export default AIStudioHeader;

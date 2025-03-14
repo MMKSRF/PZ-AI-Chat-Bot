@@ -7,6 +7,7 @@ import { AIStudioHeaderProvider, HistoryProvider, SignUpProvider } from './conte
 import SignUpPage from './pages/SignUp.jsx';
 import DocumentationPage from './pages/Documentation.jsx';
 import FeaturesPage from './pages/Features.jsx';
+import AIStudio from './pages/AIStudio.jsx';
 
 
 function App() {
@@ -21,10 +22,11 @@ function App() {
                     <Routes>
                       <Route path="/" element={<Home />} />
                       <Route path="/login" element={<Login />} />
-                      <Route path='signup' element={<SignUpPage/>} />
+                      <Route path="/signup" element={<SignUpPage/>} />
                       <Route path="/logout" element={<Logout />} />
-                      <Route path='/features' element={<FeaturesPage/>} />
-                      <Route path='/documentation' element={<DocumentationPage/>}/> 
+                      <Route path="/features" element={<FeaturesPage/>} />
+                      <Route path="/documentation" element={<DocumentationPage/>}/> 
+                      <Route path="/studio" element={<AIStudio />} />
                     </Routes>
 
               </ChatProvider>
