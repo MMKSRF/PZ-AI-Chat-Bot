@@ -13,7 +13,7 @@ function Home() {
     <>
       <main className="grid grid-cols-[2fr_8fr] h-screen overflow-hidden">
         <div className=" h-screen overflow-y-auto">
-          {<>{!historyClicked ? <ChatHis /> : <HistoryPage />}</>}
+          {<>{!historyClicked ? <ChatHis /> : <HistoryPage />}*/</>}
         </div>
         
         <div className=" border-l-2 black  h-screen overflow-y-auto"> 

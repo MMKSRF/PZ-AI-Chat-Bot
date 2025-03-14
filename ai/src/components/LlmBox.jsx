@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
 
+
+// This the place of the box where all the llm types are stored.
 function LlmBox({children}) {
   return (
-    <button onClick={(console.log("hi"))} className="w-3/10 min-w-[240px] p-4  dark:border-gray-700 flex flex-col gap-1">
+    <div  className="w-3/10 min-w-[240px] p-4  dark:border-gray-700 flex flex-col gap-1">
           {children}
-    </button>
+          
+    </div>
   )
 };
 

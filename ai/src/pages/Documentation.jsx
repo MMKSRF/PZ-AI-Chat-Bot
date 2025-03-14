@@ -231,7 +231,7 @@ const DocumentationPage = () => {
 
         <div className="flex flex-col md:flex-row gap-8">
           {/* Enhanced Sidebar */}
-          <div className="w-full md:w-72 lg:w-80 space-y-4">
+          <div className="w-full md:w-72 lg:w-80 ml-16 space-y-4">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold dark:text-white">Documentation</h2>
               <div className="flex gap-2">
@@ -354,7 +354,7 @@ const DocumentationPage = () => {
 
 
           {/* Enhanced Main Content */}
-          <div className=" w-3/5 bg-white dark:bg-gray-800 rounded-xl  shadow-sm ml-9 p-6 lg:p-8">
+          <div className=" w-3/5 bg-white dark:bg-gray-800 rounded-xl  shadow-sm ml-16 p-6 lg:p-10">
             
             <div className="flex items-center justify-between mb-8">
               <h1 className="text-3xl font-bold dark:text-white">
