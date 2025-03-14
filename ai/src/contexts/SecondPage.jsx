@@ -11,19 +11,33 @@ function ChatProvider({ children }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [LogedIn, setLogedIn] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
-  const [history, setHistory] = useState([]); // Initialize history as an empty array
+  const [history, setHistory] = useState([]);
   const inputRef = useRef(null);
+
+  const [userPrompt, setUserPrompt] = useState("");
+  const [userPromptHistory, setUserPromptHistory] = useState([]); // Fixed: Now using state
 
   const handleSubmit = async () => {
     setIsSubmitted(true);
     setIsLoading(true);
-    setInput(inputRef.current.value);
+    const currentInput = inputRef.current.value;
+
+    // Update state with new prompt
+    setInput(currentInput);
+    setUserPrompt(currentInput);
+
+    // Add to history immediately with empty answer
+    setUserPromptHistory(prev => [
+      ...prev,
+      {
+        userQuestion: currentInput,
+        userAnswer: "" // Will be updated when response arrives
+      }
+    ]);
   };
 
   useEffect(() => {
-    if (!isSubmitted || !input) {
-      return;
-    }
+    if (!isSubmitted || !input) return;
 
     async function getAiConnection() {
       try {
@@ -35,10 +49,8 @@ function ChatProvider({ children }) {
           body: JSON.stringify({ question: input }),
         });
 
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
- 
+        if (!response.ok) throw new Error("Network response was not ok");
+
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
         let aiResponse = "";
@@ -47,7 +59,16 @@ function ChatProvider({ children }) {
           const { done, value } = await reader.read();
           if (done) break;
           aiResponse += decoder.decode(value);
-          setResponse(aiResponse); // Update the response progressively
+          setResponse(aiResponse);
+
+          // Update history with the latest response
+          setUserPromptHistory(prev => {
+            const newHistory = [...prev];
+            if (newHistory.length > 0) {
+              newHistory[newHistory.length - 1].userAnswer = aiResponse;
+            }
+            return newHistory;
+          });
         }
       } catch (error) {
         console.error("Error:", error);
@@ -62,24 +83,26 @@ function ChatProvider({ children }) {
   }, [input, isSubmitted]);
 
   return (
-    <ChatContext.Provider
-      value={{
-        input,
-        response,
-        isLoading,
-        isSubmitted,
-        inputRef,
-        LogedIn,
-        isDarkTheme,
-        setLogedIn,
-        handleSubmit,
-        setIsDarkTheme,
-        history,
-        setHistory,
-      }}
-    >
-      {children}
-    </ChatContext.Provider>
+      <ChatContext.Provider
+          value={{
+            input,
+            response,
+            isLoading,
+            isSubmitted,
+            inputRef,
+            LogedIn,
+            isDarkTheme,
+            setLogedIn,
+            handleSubmit,
+            setIsDarkTheme,
+            history,
+            setHistory,
+            userPrompt,
+            userPromptHistory // Now properly persisted
+          }}
+      >
+        {children}
+      </ChatContext.Provider>
   );
 }
 
